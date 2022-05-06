@@ -5,6 +5,7 @@ import TransactionItemList from "./TransactionItemList";
 import './App.css'
 import PageTabs from './PageTabs';
 import axios from "axios";
+import AddAccount from "./AddAccount";
 
 class App extends React.Component {
     state = {
@@ -35,6 +36,13 @@ class App extends React.Component {
           return (this.wrapPage(
               <div className="container">
                   <div className="row">
+                      <div className="col-sm-4">
+                          <AddAccount title="Accounts"
+                                       stateList="accounts"
+                                       accountType="account"
+                          />
+                      </div>
+
                       <div className="col-sm-4">
                           <AccountItemList/>
                       </div>

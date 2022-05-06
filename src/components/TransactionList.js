@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import '../css/index.css'
 
 import TransactionGroups from './TransactionGroups';
-import AddAccount from './AddPlayer';
+import AddAccount from './AddAccount';
 
 import { removeAccount } from '../actions';
 
