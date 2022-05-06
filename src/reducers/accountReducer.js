@@ -3,8 +3,9 @@ const generateID = () => {
   return `${Date.now()}${Math.floor(Math.random() * 100)}`;
 };
 
+
 const DEFAULT_STATE = {
-  accounts: [
+  users: [
     { id: generateID(), name: 'Lannisters', balance: 1189.78 },
     { id: generateID(), name: 'Starks', balance: 567.71 },
     { id: generateID(), name: 'Baratheons', balance: 31.26 },
@@ -16,31 +17,41 @@ const DEFAULT_STATE = {
     { id: generateID(), name: 'Arryns', balance: 1035.83 },
     { id: generateID(), name: 'Free Folk', balance: -134.34 },
   ],
-  account: [],
+  accounts: [],
   //enemies: [],
 };
 
 const sortAccounts = (state) => {
-  let newState = {
-    accounts: [ ...state.accounts ],
-    //account: state.accounts.filter(char => char.type === 'account'),
-    //enemies: state.accounts.filter(char => char.type === 'enemy'),
+  return {
+    users: [...state.users],
+    accounts: state.users.filter(char => char.type === 'account'),
   };
-
-  return newState;
 };
 
 const accountReducer = (state = sortAccounts(DEFAULT_STATE), action) => {
   switch (action.type) {
     case 'ADD_ACCOUNT':
-      const account = action.payload;
-      account.id = generateID();
-      state.accounts.push(account);
+      const user = action.payload;
+      user.id = generateID();
+      state.users.push(user);
+      return sortAccounts(state);
+
+    case 'DEPOSIT_ACCOUNT':
+      const username = action.payload;
+      username.id = generateID();
+      state.users.push(username);
+      return sortAccounts(state);
+
+    case 'EDIT_ACCOUNT':
+      const edit = action.payload;
+      edit.id = generateID();
+      state.users.push(edit);
+      edit.name = document.getElementById('newName');
       return sortAccounts(state);
 
     case 'REMOVE_ACCOUNT':
       const { id } = action.payload;
-      state.accounts = state.accounts.filter(char => {
+      state.users = state.users.filter(char => {
         return char.id !== id;
       });
       return sortAccounts(state);

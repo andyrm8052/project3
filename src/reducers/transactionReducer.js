@@ -15,19 +15,22 @@ const DEFAULT_STATE = {
         { id: generateID(), accountId: 2, type: "withdraw", amount: 204.23, name: 'Sending Lord to Capital'},
         { id: generateID(), accountId: 2, type: "withdraw", amount: 11.34, name: 'Camping at Twins'},
         { id: generateID(), accountId: 3, type: "deposit", amount: 162.94, name: 'Spoils of War'},
+        { id: generateID(), accountId: 3, type: "deposit", amount: 934.36, name: 'Account Opened'},
+        { id: generateID(), accountId: 3, type: "withdraw", amount: 394.95, name: 'Younger Brother Rebelled'},
+        { id: generateID(), accountId: 3, type: "withdraw", amount: 183.48, name: "Attacked King's Landing"},
+        { id: generateID(), accountId: 3, type: "deposit", amount: 500, name: 'Iron Bank Loan'},
+        { id: generateID(), accountId: 3, type: "withdraw", amount: 643.03, name: 'withdraw'},
+        { id: generateID(), accountId: 3, type: "withdraw", amount: 138.4, name: 'Transit to Wall'},
     ],
     transaction: [],
     //enemies: [],
 };
 
 const sortTransactions = (state) => {
-    let newState = {
-        transactions: [ ...state.transactions ],
-        //account: state.accounts.filter(char => char.type === 'account'),
-        //enemies: state.accounts.filter(char => char.type === 'enemy'),
+    return {
+        transactions: [...state.transactions],
+        transaction: state.transactions.filter(char => char.name === 'name'),
     };
-
-    return newState;
 };
 
 const transactionReducer = (state = sortTransactions(DEFAULT_STATE), action) => {
@@ -35,6 +38,9 @@ const transactionReducer = (state = sortTransactions(DEFAULT_STATE), action) => 
         case 'ADD_ACCOUNT':
             const transaction = action.payload;
             transaction.id = generateID();
+            transaction.type = "deposit";
+            //transaction.balance = balance
+            //transaction.name = "Account Opened";
             state.transactions.push(transaction);
             return sortTransactions(state);
 

@@ -8,11 +8,11 @@ class AddAccount extends React.Component {
   state = { name: '', balance: '' }
 
   onFormSubmit = (event) => {
-    const { name, balance } = this.state;
+    const { name, balance} = this.state;
     const { accountType } = this.props;
     event.preventDefault();
     this.props.addAccount(name, balance, accountType);
-    this.setState({ name: '', balance: '' });
+    this.setState({ name: '', balance: ''});
   }
 
   render() {
@@ -28,7 +28,7 @@ class AddAccount extends React.Component {
             className="form-control"
             name="name"
             value={name}
-            onChange={event => this.setState({ name: event.target.value })}
+            onChange={event => this.setState({ name: event.target.value})}
             placeholder="Name"
           />
         </div>
@@ -40,7 +40,7 @@ class AddAccount extends React.Component {
             name="balance"
             value={balance}
             onChange={event => this.setState({ balance: event.target.value })}
-            placeholder="Balance"
+            placeholder="Amount"
           />
         </div>
 

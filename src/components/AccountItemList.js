@@ -4,25 +4,18 @@ import '../css/index.css'
 
 import AccountItem from './AccountItem';
 
-import { nextTurn, prevTurn } from '../actions';
-
-function isCurrentTurn (currentTurn, index) {
-  return currentTurn === index;
-}
-
 const AccountItemList = (props) => {
-  const { accounts, currentTurn } = props;
+  const { users } = props;
 
-  const characterList = accounts
+  const characterList = users
     .sort((a, b) => {
-      return b.initiative - a.initiative;
+      return b.balance - a.balance;
     })
-    .map((char, index) => {
+    .map((acc, index) => {
       return (
         <AccountItem key={index}
-                     name={char.name}
-                     accBalance={char.balance}
-                     isCurrentTurn={isCurrentTurn(currentTurn, index)}
+                     name={acc.name}
+                     accBalance={acc.balance}
        />
       );
     });
@@ -40,9 +33,8 @@ const AccountItemList = (props) => {
 
 function mapStateToProps(state) {
   return {
-      accounts: state.accounts.accounts,
-      currentTurn: state.turn.current,
+      users: state.users.users,
   };
 }
 
-export default connect(mapStateToProps, { prevTurn, nextTurn })(AccountItemList);
+export default connect(mapStateToProps)(AccountItemList);

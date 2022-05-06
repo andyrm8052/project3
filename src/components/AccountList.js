@@ -5,7 +5,7 @@ import '../css/index.css'
 import AccountGroups from './AccountGroups';
 import AddAccount from './AddAccount';
 
-import { removeAccount } from '../actions';
+import { removeAccount, depositAccount, editAccount } from '../actions';
 
 class AccountList extends React.Component {
 
@@ -13,24 +13,35 @@ class AccountList extends React.Component {
     this.props.removeAccount(id);
   }
 
+  onDepositAccount = (id) => {
+    this.props.depositAccount(id);
+  }
+
+
+  onEditAccount = (id) => {
+    this.props.editAccount(id);
+  }
+
   render() {
     const { title, accountType } = this.props;
 
     const accountArr = this.props[this.props.stateList];
-    const accountList = accountArr.map((accounts, index) => {
+    const accountList = accountArr.map((user, index) => {
       return (
         <AccountGroups
           key={index}
           index={index}
-          accounts={accounts}
+          user={user}
           removeAccount={this.onRemoveAccount}
+          editAccount={this.onEditAccount}
+          depositAccount={this.onDepositAccount}
         />
       );
     });
     return (
       <div className="card">
         <h3>{title} List</h3>
-        <AddAccount accountType={accountType} />
+      
         <ul className="list-group">
           { accountList }
         </ul>
@@ -41,9 +52,9 @@ class AccountList extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    account: state.accounts.account,
+    accounts: state.users.accounts,
     //enemies: state.accounts.enemies,
   };
 };
 
-export default connect(mapStateToProps, { removeAccount })(AccountList);
+export default connect(mapStateToProps, { removeAccount, depositAccount, editAccount })(AccountList);

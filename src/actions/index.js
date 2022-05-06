@@ -2,7 +2,16 @@ export const addAccount = (name, balance) => {
   return {
     type: 'ADD_ACCOUNT',
     payload: {
-      name, balance
+      name, balance,
+    }
+  };
+};
+
+export const depositAccount = (name, balance) => {
+  return {
+    type: 'DEPOSIT_ACCOUNT',
+    payload: {
+      name, balance,
     }
   };
 };
@@ -16,10 +25,11 @@ export const removeAccount = (id) => {
   };
 };
 
-export const nextTurn = () => {
-  return { type: 'NEXT_TURN' };
-};
-
-export const prevTurn = () => {
-  return { type: 'PREV_TURN' };
+export const editAccount = (id) => {
+  return {
+    type: 'EDIT_ACCOUNT',
+    payload: {
+      id
+    },
+  };
 };

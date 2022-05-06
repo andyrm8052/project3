@@ -4,26 +4,20 @@ import '../css/index.css'
 
 import TransactionItem from './TransactionItem';
 
-import { nextTurn, prevTurn } from '../actions';
-
-function isCurrentTurn (currentTurn, index) {
-  return currentTurn === index;
-}
-
 const TransactionItemList = (props) => {
-  const { transactions, currentTurn } = props;
+  const { transactions } = props;
 
   const transactionList = transactions
     .sort((a, b) => {
-      return b.initiative - a.initiative;
+      return b.name - a.name;
     })
-    .map((char, index) => {
+    .map((tran, index) => {
       return (
         <TransactionItem key={index}
-                     type={char.type}
-                     amount={char.amount}
-                     name={char.name}
-                     isCurrentTurn={isCurrentTurn(currentTurn, index)}
+                     accountId={tran.accountId}
+                     type={tran.type}
+                     amount={tran.amount}
+                     name={tran.name}
        />
       );
     });
@@ -32,6 +26,7 @@ const TransactionItemList = (props) => {
     <div className="card">
         <ul className="list-group">
             <div className="title_lists">
+                <div className="id_title">Account ID</div>
                 <div className="type_title">Type</div>
                 <div className="amount_title">Amount</div>
                 <div className="transaction_name_title">Name</div>
@@ -45,8 +40,7 @@ const TransactionItemList = (props) => {
 function mapStateToProps(state) {
   return {
       transactions: state.transactions.transactions,
-      currentTurn: state.turn.current,
   };
 }
 
-export default connect(mapStateToProps, { prevTurn, nextTurn })(TransactionItemList);
+export default connect(mapStateToProps)(TransactionItemList);

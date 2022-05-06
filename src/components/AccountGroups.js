@@ -6,11 +6,11 @@ const AccountGroups = (props) => {
   return (
     <li className='list-group-item'
         key={props.index}>
-      { props.accounts.name }
+      { props.user.name }
       <button
         type="button"
         className="btn btn-danger float-right"
-        onClick={() => props.removeAccount(props.accounts.id)}>
+        onClick={() => props.removeAccount(props.user.id)}>
         Delete
       </button>
     </li>

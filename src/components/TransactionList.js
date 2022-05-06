@@ -30,7 +30,6 @@ class TransactionList extends React.Component {
     return (
       <div className="card">
         <h3>{title} List</h3>
-        <AddAccount transactionType={transactionType} />
         <ul className="list-group">
           { accountList }
         </ul>
