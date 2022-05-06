@@ -1,0 +1,75 @@
+.container{
+    text-align: center;
+    align-items: center;
+}
+
+.card .list-group{
+    position: relative;
+}
+
+ul{
+    list-style-type: none;
+}
+
+.accounts_name{
+    float: left;
+    margin-right: 50px;
+    margin-bottom: 20px;
+}
+
+.badge{
+    display: flex;
+    justify-content: right;
+    margin-bottom: 20px;
+}
+/*
+.account_title h3{
+    position: relative;
+    font-size: 30px;
+    margin-left: 30px;
+}
+*/
+.name_title{
+    padding-right: 50px;
+    background: darkseagreen;
+    float: left;
+}
+.balance_title{
+    background: steelblue;
+    text-align: right;
+}
+.title_lists div{
+    display: inline;
+    margin-left: 80px;
+}
+.transactions_type, .type_title{
+    float: left;
+}
+.type_title{
+    padding: 0 60px;
+    background: darkseagreen;
+}
+.amount_title{
+    padding: 0 60px;
+    background: steelblue;
+}
+.transaction_name_title{
+    padding: 0 60px;
+    background: indianred;
+}
+.transaction_name_title, .transactions_name{
+    float: right;
+}
+.nav-item{
+    margin-bottom: 5px;
+    padding: 10px;
+    display: inline;
+}
+.transaction_items{
+    margin-bottom: 30px;
+}
+
+.transaction_items div{
+    display: inline;
+    margin-left: 100px;
+}
