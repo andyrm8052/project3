@@ -1,11 +1,15 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import AccountItemList from "./AccountItemList";
 import TransactionItemList from "./TransactionItemList";
 import './App.css'
 import PageTabs from './PageTabs';
 import AddAccount from "./AddAccount";
-import Page1 from "./AccountPage";
 import AccountList from './AccountList'
+import AccountMember from "./AccountMember";
+import axios from "axios";
+import { setAccounts, accountsError } from "../actions"
+
 
 const DepositAccount = props => {
     const AccName = document.getElementById('AccName');
@@ -25,6 +29,20 @@ const DepositAccount = props => {
 class App extends React.Component {
     state = {
         view: 'page1',
+        accounts: [],
+    }
+
+    componentDidMount() {
+        this.getData();
+    }
+
+    getData() {
+        axios.get('https://my-json-server.typicode.com/bnissen24/project2DB/accounts')
+            .then(response => {
+                this.props.setAccounts(response.data);
+            }).catch(error => {
+            this.props.accountsError();
+        });
     }
 
     onUpdateAccountList = (newAccountList) => {
@@ -33,6 +51,28 @@ class App extends React.Component {
 
     onViewChange(view) {
         this.setState({view});
+    }
+
+    onEditAccount = (accountName) => {
+        const accName = document.getElementById('accounts_name');
+        const inputName = document.getElementById('EditAccName');
+        const option = accName.value;
+        let newName = '';
+        if (inputName === option){
+            newName = inputName;
+        }
+        let accounts = this.state.users;
+        accounts.push({
+            title: accountName,
+            name: newName
+        });
+        this.setState({ accounts });
+    }
+
+    onFormSubmit = (event) => {
+        event.preventDefault();
+        this.props.onSubmit(this.state.users);
+        this.setState({ accounts: '' })
     }
 
     wrapPage(jsx){
@@ -62,13 +102,19 @@ class App extends React.Component {
                       </div>
 
                       <div className="col-sm-4">
-                          <AccountItemList/>
+                          <AccountList/>
                       </div>
                   </div>
               </div>
           ));
       }
-
+        //<AccountItemList/> inside div className='col-sm-4
+      /*
+      <AccountItemList
+          title="Accounts"
+          stateList="accounts"
+      />
+      */
       else if (view === 'page2'){
           return (this.wrapPage(
               <div className="container">
@@ -86,7 +132,7 @@ class App extends React.Component {
               <div className="container">
                   <div className="row">
                       <div className="col-sm-4">
-                          <form>
+                          <form onSubmit={this.onFormSubmit}>
                               <label id="labelId">
                                   Deposit & Withdraw:
                               </label>
@@ -102,24 +148,15 @@ class App extends React.Component {
                               <label id="labelId">
                                   Edit:
                               </label>
-                              <input type="text" placeholder="Account Name" id="AccName"/>
+                              <input type="text" placeholder="Account Name" id="EditAccName"/>
                               <input placeholder="New Name" id="newName"/>
-                              <input type="submit" value="Submit"/>
+                              <input type="submit" value="submit"
+                              onSubmit={this.onEditAccount}
+                              name="accounts"
+                              //value={this.state.accounts}
+                              onChange={(e) => this.setState({accounts: e.target.value})}
+                              />
                           </form>
-                          <AccountItemList/>
-                          <TransactionItemList/>
-                      </div>
-                  </div>
-              </div>
-          ));
-      }
-
-      else if (view === 'accountPage'){
-          return (this.wrapPage(
-              <div className="container">
-                  <div className="row">
-                      <div className="col-sm-4">
-                          <Page1 accounts={this.state.account} onUpdateAccountList={this.onUpdateAccountList}/>
                           <AccountItemList/>
                           <TransactionItemList/>
                       </div>
@@ -130,7 +167,16 @@ class App extends React.Component {
   }
 }
 
-export default App;
+
+const mapStateToProps = (state) => {
+    return {
+        errorMessage: state.errors.getAccounts
+    };
+}
+
+//export default App;
+export default connect(mapStateToProps, {setAccounts, accountsError})(App);
+
 /*
 <div className="col-sm-4">
     <TeamList title="Players"

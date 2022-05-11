@@ -2,7 +2,7 @@ import React from 'react';
 import '../css/index.css'
 
 //displays the accounts w/ balance
-const AccountGroups = (props) => {
+const AccountMember = (props) => {
   return (
     <li className='list-group-item'
         key={props.index}>
@@ -17,4 +17,4 @@ const AccountGroups = (props) => {
   );
 };
 
-export default AccountGroups;
+export default AccountMember;

@@ -1,5 +1,6 @@
 import React from 'react';
 import '../css/index.css'
+import AccountMember from "./AccountMember";
 
 const AccountItem = (props) => {
   const { name, accBalance} = props;
@@ -8,15 +9,15 @@ const AccountItem = (props) => {
 
   return (
     <li className={classNames}>
-        <div className="accounts_name">
-            { name }
+        <div className="accounts_name" id="accounts_name">
+            { props.accounts.name }
         </div>
         <span className="badge badge-primary badge-pull">
-            ${ accBalance }
+            ${ props.accounts.accBalance }
             <button
                 type="button"
-                className="deleteAccount"
-                onClick={() => props.removeAccount(props.accounts.id)}>
+                className="btn btn-danger float-right deleteAccount"
+                onClick={() => props.removeAccount(props.getAccounts.id)}>
                 Delete
             </button>
         </span>
@@ -25,3 +26,7 @@ const AccountItem = (props) => {
 };
 
 export default AccountItem;
+
+// inside span or below span
+// <AccountMember/>
+//

@@ -7,7 +7,7 @@ import AccountItem from './AccountItem';
 const AccountItemList = (props) => {
   const { users } = props;
 
-  const characterList = users
+  const accountList = users
     .sort((a, b) => {
       return b.balance - a.balance;
     })
@@ -25,7 +25,7 @@ const AccountItemList = (props) => {
         <ul className="list-group">
           <div className="name_title">Name</div>
           <div className="balance_title">Balance</div>
-            { characterList }
+            { accountList }
         </ul>
     </div>
   );

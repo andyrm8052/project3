@@ -9,9 +9,8 @@ class AddAccount extends React.Component {
 
   onFormSubmit = (event) => {
     const { name, balance} = this.state;
-    const { accountType } = this.props;
     event.preventDefault();
-    this.props.addAccount(name, balance, accountType);
+    this.props.addAccount(name, balance);
     this.setState({ name: '', balance: ''});
   }
 

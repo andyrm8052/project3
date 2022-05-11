@@ -1,3 +1,10 @@
+export const setAccounts = accounts => {
+  return {
+    type: 'SET_ACCOUNT',
+    payload: accounts
+  }
+};
+
 export const addAccount = (name, balance) => {
   return {
     type: 'ADD_ACCOUNT',
@@ -25,11 +32,17 @@ export const removeAccount = (id) => {
   };
 };
 
-export const editAccount = (id) => {
+export const editAccount = (name) => {
   return {
     type: 'EDIT_ACCOUNT',
     payload: {
-      id
+      name
     },
   };
+};
+
+export const accountsError = accErrorMsg => {
+  return {
+    type: 'ACCOUNTS_ERRORS'
+  }
 };
