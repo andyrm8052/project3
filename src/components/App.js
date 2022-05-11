@@ -170,12 +170,12 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        errorMessage: state.errors.getAccounts
+        errorMessage: state.errors.users
     };
 }
 
 //export default App;
-export default connect(mapStateToProps, {setAccounts, accountsError})(App);
+export default connect(null, {setAccounts, accountsError})(App);
 
 /*
 <div className="col-sm-4">

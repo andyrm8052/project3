@@ -6,13 +6,13 @@ const generateID = () => {
 };
 
 const DEFAULT_STATE = {
-    getAccounts: '',
+    users: '',
     accounts: [],
 };
 
 const sortAccounts = (state) => {
   return {
-    getAccounts: [...state.getAccounts],
+    users: [...state.users],
     //accounts: state.getAccounts.filter(char => char.type === 'account'),
   };
 };
@@ -25,25 +25,25 @@ const accountReducer = (state = sortAccounts(DEFAULT_STATE), action) => {
     case 'ADD_ACCOUNT':
       const user = action.payload;
       user.id = generateID();
-      state.getAccounts.push(user);
+      state.users.push(user);
       return sortAccounts(state);
 
     case 'DEPOSIT_ACCOUNT':
       const username = action.payload;
       username.id = generateID();
-      state.getAccounts.push(username);
+      state.users.push(username);
       return sortAccounts(state);
 
     case 'EDIT_ACCOUNT':
       const edit = action.payload;
       edit.id = generateID();
-      state.getAccounts.push(edit);
+      state.users.push(edit);
       edit.name = document.getElementById('newName');
       return sortAccounts(state);
 
     case 'REMOVE_ACCOUNT':
       const { id } = action.payload;
-      state.getAccounts = state.getAccounts.filter(acc => {
+      state.users = state.users.filter(acc => {
         return acc.id !== id;
       });
       return sortAccounts(state);
@@ -51,7 +51,7 @@ const accountReducer = (state = sortAccounts(DEFAULT_STATE), action) => {
     case 'GET_TODO_ERROR':
       return {
         ...state,
-        getAccounts: 'Unable to get Todos from API. Please Try again later'
+        users: 'Unable to get Todos from API. Please Try again later'
       }
 
     default:
