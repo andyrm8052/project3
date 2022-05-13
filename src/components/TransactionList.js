@@ -6,32 +6,21 @@ import TransactionGroups from './TransactionGroups';
 import AddAccount from './AddAccount';
 
 import { removeAccount } from '../actions';
+import AccountItem from "./AccountItem";
 
 class TransactionList extends React.Component {
 
-  onRemoveAccount = (id) => {
-    this.props.removeAccount(id);
-  }
-
   render() {
-    const { title, transactionType } = this.props;
-
-    const accountArr = this.props[this.props.stateList];
-    const accountList = accountArr.map((transactions, index) => {
-      return (
-        <TransactionGroups
-          key={index}
-          index={index}
-          transactions={transactions}
-          removeAccount={this.onRemoveAccount}
-        />
-      );
+    const transactionList = this.props.transactions.sort((a, b) => {
+      return b.name - a.name}).map((trans, index) => {
+      return <AccountItem trans={trans} key={trans.id} removeAccount={this.props.removeAccount}/>
     });
+
     return (
       <div className="card">
-        <h3>{title} List</h3>
+        <h3>Transaction List</h3>
         <ul className="list-group">
-          { accountList }
+          { transactionList }
         </ul>
       </div>
     );
@@ -40,9 +29,8 @@ class TransactionList extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    transaction: state.transactions.transaction,
-    //enemies: state.accounts.enemies,
+    transaction: state.transactions.transactions,
   };
 };
 
-export default connect(mapStateToProps, { removeAccount })(TransactionList);
+export default connect(mapStateToProps, {removeAccount})(TransactionList);

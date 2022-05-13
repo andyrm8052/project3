@@ -5,6 +5,13 @@ export const setAccounts = accounts => {
   }
 };
 
+export const setTransactions = transactions => {
+  return {
+    type: 'SET_TRANSACTION',
+    payload: transactions
+  }
+};
+
 export const addAccount = (name, balance) => {
   return {
     type: 'ADD_ACCOUNT',
@@ -44,5 +51,11 @@ export const editAccount = (name) => {
 export const accountsError = accErrorMsg => {
   return {
     type: 'ACCOUNTS_ERRORS'
+  }
+};
+
+export const transactionsError = tranErrorMsg => {
+  return {
+    type: 'TRANSACTIONS_ERRORS'
   }
 };

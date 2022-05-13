@@ -16,7 +16,7 @@ const TransactionItem = (props) => {
                 { type }
             </div>
           <div className="transactions_amount">
-              ${ amount }
+              ${  amount }
           </div>
             <div className="transactions_name">
                 { name }

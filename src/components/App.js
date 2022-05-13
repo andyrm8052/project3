@@ -6,25 +6,10 @@ import './App.css'
 import PageTabs from './PageTabs';
 import AddAccount from "./AddAccount";
 import AccountList from './AccountList'
-import AccountMember from "./AccountMember";
 import axios from "axios";
-import { setAccounts, accountsError } from "../actions"
+import { setAccounts, accountsError, setTransactions, transactionsError } from "../actions"
+import TransactionList from "./TransactionList";
 
-
-const DepositAccount = props => {
-    const AccName = document.getElementById('AccName');
-    const BalanceAmount = document.getElementById('BalanceAmount');
-    console.log(BalanceAmount)
-    if (props.accounts.name === AccName) {
-        return (
-            <li className="list-group-item" >
-                <div>
-                    {props.accounts.balance+BalanceAmount}
-                </div>
-            </li>
-        )
-    }
-};
 
 class App extends React.Component {
     state = {
@@ -33,15 +18,25 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        this.getData();
+        this.getDataAccounts();
+        this.getDataTransactions();
     }
 
-    getData() {
+    getDataAccounts() {
         axios.get('https://my-json-server.typicode.com/bnissen24/project2DB/accounts')
             .then(response => {
                 this.props.setAccounts(response.data);
             }).catch(error => {
             this.props.accountsError();
+        });
+    }
+
+    getDataTransactions() {
+        axios.get('https://my-json-server.typicode.com/bnissen24/project2DB/transactions')
+            .then(response => {
+                this.props.setTransactions(response.data);
+            }).catch(error => {
+            this.props.transactionsError();
         });
     }
 
@@ -51,22 +46,6 @@ class App extends React.Component {
 
     onViewChange(view) {
         this.setState({view});
-    }
-
-    onEditAccount = (accountName) => {
-        const accName = document.getElementById('accounts_name');
-        const inputName = document.getElementById('EditAccName');
-        const option = accName.value;
-        let newName = '';
-        if (inputName === option){
-            newName = inputName;
-        }
-        let accounts = this.state.users;
-        accounts.push({
-            title: accountName,
-            name: newName
-        });
-        this.setState({ accounts });
     }
 
     onFormSubmit = (event) => {
@@ -108,13 +87,7 @@ class App extends React.Component {
               </div>
           ));
       }
-        //<AccountItemList/> inside div className='col-sm-4
-      /*
-      <AccountItemList
-          title="Accounts"
-          stateList="accounts"
-      />
-      */
+
       else if (view === 'page2'){
           return (this.wrapPage(
               <div className="container">
@@ -151,13 +124,11 @@ class App extends React.Component {
                               <input type="text" placeholder="Account Name" id="EditAccName"/>
                               <input placeholder="New Name" id="newName"/>
                               <input type="submit" value="submit"
-                              onSubmit={this.onEditAccount}
                               name="accounts"
-                              //value={this.state.accounts}
                               onChange={(e) => this.setState({accounts: e.target.value})}
                               />
                           </form>
-                          <AccountItemList/>
+                          <AccountList/>
                           <TransactionItemList/>
                       </div>
                   </div>
@@ -174,23 +145,4 @@ const mapStateToProps = (state) => {
     };
 }
 
-//export default App;
-export default connect(null, {setAccounts, accountsError})(App);
-
-/*
-<div className="col-sm-4">
-    <TeamList title="Players"
-        stateList="players"
-        characterType="player"
-/>
-</div>
- */
-
-
-/*
-<TeamList
-    title="Enemies"
-    stateList="enemies"
-    characterType="enemy"
-/>
-*/
+export default connect(null, {setAccounts, setTransactions, accountsError, transactionsError})(App);
