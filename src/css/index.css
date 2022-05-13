@@ -42,12 +42,6 @@ ul{
     display: inline;
     margin-left: 80px;
 }
-
-/*
-.transactions_type, .type_title{
-    float: left;
-}
-*/
 .transactions_id, .id_title{
     float: left;
 }
@@ -92,4 +86,47 @@ ul{
 }
 .deleteAccount{
     margin-left: 20px;
+}
+
+@media only screen and (max-width: 411px) {
+    .title_lists div{
+        display: inline;
+        margin-left: 1px;
+    }
+
+    .transactions_id {
+        margin-left: 10px;
+        margin-right: 1px;
+    }
+
+    .id_title {
+        padding: 0 2px;
+        background: coral;
+    }
+    .type_title {
+        padding: 0 20px;
+        background: darkseagreen;
+    }
+    .amount_title {
+        padding: 0 20px;
+        background: steelblue;
+    }
+    .transaction_name_title {
+        padding: 0 20px;
+        background: indianred;
+    }
+    .transactions_id {
+        font-size: 12px;
+    }
+    .transactions_amount {
+        margin-left: 40px;
+        font-size: 12px;
+    }
+    .transactions_type {
+        margin-left: 50px;
+        font-size: 12px;
+    }
+    .transactions_name {
+        font-size: 12px;
+    }
 }
